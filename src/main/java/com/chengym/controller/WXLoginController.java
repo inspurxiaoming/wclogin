@@ -36,7 +36,7 @@ public class WXLoginController {
     @Autowired
     ProxyService proxyService;
 
-    @PostMapping("/wx-server/wcLogin")
+    @PostMapping("/wcLogin")
     public IMoocJSONResult wxLogin(@RequestBody UserLogin userLogin) throws Exception {
         log.info("++userCode:{}", userLogin.getCode());
         log.info("++userEncryptedData:{}", userLogin.getEncryptedData());
@@ -83,7 +83,7 @@ public class WXLoginController {
     }
 
 
-    @PostMapping("/wx-server/detail")
+    @PostMapping("/detail")
     public IMoocJSONResult getUserMessage(@RequestBody UserLogin userLogin) {
         log.info("+++detail get userId :{} ",userLogin.getUserId());
         IMoocJSONResult iMoocJSONResult = userService.getUserByUserId(userLogin.getUserId());
@@ -125,7 +125,7 @@ public class WXLoginController {
             return "Issue while decoding" +e.getMessage();
         }
     }
-    @PostMapping("/wx-server/get")
+    @PostMapping("/get")
     public IMoocJSONResult getUserInfo(@RequestBody UserLogin userLogin) throws Exception {
         log.info("++userId:{}", userLogin.getUserId());
         log.info("++userEncryptedData:{}", userLogin.getEncryptedData());
@@ -142,53 +142,53 @@ public class WXLoginController {
         IMoocJSONResult iMoocJSONResult = new IMoocJSONResult(userLogin.getUserInfo().getAvatarUrl(), user==null?"user":user.getRoles());
         return iMoocJSONResult;
     }
-    @GetMapping("/wx-server/list")
+    @GetMapping("/list")
     public IMoocJSONResult getAllUsers( @RequestParam(required = false, defaultValue = "1") int start,
                                         @RequestParam(required = false, defaultValue = "10") int length){
         return userService.getAllUsers(start, length,1);
     }
-    @GetMapping("/wx-server/old-list")
+    @GetMapping("/old-list")
     public IMoocJSONResult getAllOldUsers( @RequestParam(required = false, defaultValue = "1") int start,
                                         @RequestParam(required = false, defaultValue = "10") int length){
         return userService.getAllUsers(start, length,0);
     }
-    @PutMapping("/wx-server/{userId}/set-admin")
+    @PutMapping("/{userId}/set-admin")
     public IMoocJSONResult update(@PathVariable("userId")String userId){
         User user = userService.getUserByUserIdResult(userId);
         user.setUserId(userId);
         user.setRoles(CommonConstants.USER_ROLES_ADMIN);
         return userService.updateUser(user);
     }
-    @PutMapping("/wx-server/{userId}/set-user")
+    @PutMapping("/{userId}/set-user")
     public IMoocJSONResult updateSetUser(@PathVariable("userId")String userId){
         User user = userService.getUserByUserIdResult(userId);
         user.setUserId(userId);
         user.setRoles(CommonConstants.USER_ROLES_USER);
         return userService.updateUser(user);
     }
-    @GetMapping("/wx-server/user-list")
+    @GetMapping("/user-list")
     public IMoocJSONResult getUsers( @RequestParam(required = false, defaultValue = "1") int start,
                                      @RequestParam(required = false, defaultValue = "10") int length){
         return userService.getUsers();
     }
-    @GetMapping("/wx-server/user-old-list")
+    @GetMapping("/user-old-list")
     public IMoocJSONResult getOldUsers( @RequestParam(required = false, defaultValue = "1") int start,
                                      @RequestParam(required = false, defaultValue = "10") int length){
         return userService.getUsers();
     }
-    @GetMapping("/wx-server/customer")
+    @GetMapping("/customer")
     public ResponseBean getCustomer(){
         return proxyService.getCustomer();
     }
-    @GetMapping("/wx-server/trade")
+    @GetMapping("/trade")
     public ResponseBean getTrade(){
         return proxyService.getTrade();
     }
-    @GetMapping("/wx-server/resource")
+    @GetMapping("/resource")
     public ResponseBean getResource(){
         return proxyService.getResource();
     }
-    @GetMapping("/wx-server/site")
+    @GetMapping("/site")
     public ResponseBean getSite(){
         return proxyService.getSite();
     }
