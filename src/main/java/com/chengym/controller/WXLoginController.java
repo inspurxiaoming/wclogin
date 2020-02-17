@@ -147,6 +147,12 @@ public class WXLoginController {
                                         @RequestParam(required = false, defaultValue = "10") int length){
         return userService.getAllUsers(start, length,1);
     }
+    @GetMapping("{userId}/detail")
+    public IMoocJSONResult getUser(@PathVariable("userId")String userId){
+        IMoocJSONResult iMoocJSONResult = new IMoocJSONResult();
+        iMoocJSONResult.setData(userService.getUserByUserIdResult(userId));
+        return iMoocJSONResult;
+    }
     @GetMapping("/old-list")
     public IMoocJSONResult getAllOldUsers( @RequestParam(required = false, defaultValue = "1") int start,
                                         @RequestParam(required = false, defaultValue = "10") int length){

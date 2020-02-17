@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.imooc</groupId>
-	<artifactId>imooc-springboot-wxlogin</artifactId>
+	<artifactId>passforhome</artifactId>
 	<version>0.0.3-SNAPSHOT</version>
 	<packaging>war</packaging>
 
